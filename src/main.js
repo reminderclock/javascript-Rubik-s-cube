@@ -37,8 +37,3 @@ function pushWord(str, num, direction) {
     return word.join('');
 }
 console.log(limitRange());
-    // console.log(limitRange(11,3,'L'));
-    // console.log(limitRange('banana',66,'R'));
-    // console.log(limitRange('apple',23,'o'));
-    // console.log(limitRange('carrot',-100,'r'));
-    // console.log(limitRange('cat',-4,'R'));
