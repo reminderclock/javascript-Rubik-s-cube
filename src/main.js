@@ -34,6 +34,12 @@ function pushWord(str, num, direction) {
         }
         word.splice(word.length-Math.abs(num));        
     }
-    return word.join('');
+    displayWord(word.join(''));
 }
-console.log(limitRange());
+
+// display result
+function displayWord(word) {
+    const container = document.querySelector('#word');
+    container.innerHTML = `<p>${word}</p>`;
+}
+limitRange();
