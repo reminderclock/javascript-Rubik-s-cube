@@ -12,25 +12,15 @@ function makeDefalutCube() {
     let cube = '';
     const defaultArr = cubeInfo.map( a=> a.info).slice(0,3);
         defaultArr.forEach( (arr) => {
-        cube += arr.join(' ') + '\n';
+        cube += arr.join(' ') + '</br>';
     });
-    // console.log(defaultArr);
-    console.log(cube);
-    displayPrompt(cubeInfo);
+    displayCube(cube);
 }
 
-function displayPrompt(cubeInfo) {
-    let command = prompt('>cube').split('');
-    pushLine(cubeInfo, command);
+function displayCube(cube) {
+    const container = document.querySelector('.cube');
+    container.innerHTML = `<p>${cube}</p>`;
 }
 
-function pushLine(cubeInfo, command) {
-    let sum = '';
-    for(let k=0; k<command.length; k++) {
-        sum += command[k];
-
-    }
-    console.log(sum.length);
-}
 
 makeDefalutCube();
