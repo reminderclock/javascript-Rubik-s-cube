@@ -9,17 +9,48 @@ function makeDefalutCube() {
     let cubeInfo = [top, center, bottom];
     let cube = '';
         cubeInfo.forEach( (arr) => {
-        cube += arr.join(' ') + '</br>';
+        cube += arr.join(' ') + '\n';
     });
-    displayCube(cube);
+    console.log(cube);
+    displayPrompt(cubeInfo);
 }
 
-// display cube
-function displayCube(cube) {
-    const container = document.querySelector('.cube');
-    container.innerHTML = `<p>${cube}</p>`;
+// Add prompt
+function displayPrompt(cube) {
+    let input = prompt('cube>');
+    decideShift(cube, input);
 }
 
-
-makeDefalutCube();
-//test
+// decideShift test
+function decideShift(cube, input) {
+    let right = ["U'","R'","L","B"];
+    let left = ["U","R","L'","B'"];
+    let bye = "Bye~";
+    if(right.includes(input)===true) {
+        let newCube = '';
+        newCube += input;
+        cube.forEach( (arr) => {
+        newCube += '\n' + arr.join(' ');
+    });
+        shiftRight(cube);
+    }
+    else if(left.includes(input)===true) {
+        let newCube = '';
+        newCube += input;
+        cube.forEach( (arr) => {
+        newCube += '\n' + arr.join(' ');
+    });
+        shiftLeft(cube);
+    }
+    else if(input==="Q") {
+        console.log(bye);
+    }
+    }
+    
+    // function shiftRight(cube) {
+    
+    // }
+    
+    
+    
+    makeDefalutCube();
