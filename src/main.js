@@ -60,13 +60,21 @@ cube.decideShift = function(line) {
     if(this.rightInfo.includes(this.input)){
         let sline = line.pop();
         line.unshift(sline);
-        console.log(line);
+        this.createNew(line);
     }
     else if(this.leftInfo.includes(this.input)){
         let sline = line.shift();
         line.push(sline);
-        console.log(line);
+        this.createNew(line);
     }
+}
+
+// create New Cube
+cube.createNew = function() {
+    this.fristInfo.forEach( (arr) => {
+        this.input += '\n' + arr.join(' ');
+    });
+    console.log(this.input);
 }
 
 cube.makeOthers();
