@@ -26,6 +26,47 @@ cube.frist = function() {
         this.proto += arr.join(' ') + '\n';
     });
     console.log(this.proto);
+    this.setData();
+}
+
+// input data
+cube.setData = function() {
+    this.input = prompt('cube>');
+    this.decideLine();
+}
+
+// decide line to move
+cube.decideLine = function() {
+    switch(this.input) {
+    case "U":
+    case "U'":
+    return this.decideShift(this.top);
+    case "B":
+    case "B'":
+    return this.decideShift(this.bottom);
+    case "R":
+    case "R'":
+    return this.decideShift(this.right);
+    case "L":
+    case "L'":
+    return this.decideShift(this.left); 
+    case "Q":
+    return console.log("~bye");     
+    }
+} 
+
+// right or left Shift
+cube.decideShift = function(line) {
+    if(this.rightInfo.includes(this.input)){
+        let sline = line.pop();
+        line.unshift(sline);
+        console.log(line);
+    }
+    else if(this.leftInfo.includes(this.input)){
+        let sline = line.shift();
+        line.push(sline);
+        console.log(line);
+    }
 }
 
 cube.makeOthers();
