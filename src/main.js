@@ -14,6 +14,8 @@ cube.leftInfo = ["U","R","L'","B'","Q"];
 cube.allInfo = ["U","R","L","B","'","Q"];
 cube.newCube = '';
 cube.inputInfo=[];
+cube.type='';
+cube.q='';
 
 // 처음 구성요소 만들기
 cube.makeOthers = function() {
@@ -43,13 +45,9 @@ cube.frist = function() {
 
 // input data 인풋 방향 받기
 cube.setData = function() {
-    // // 문자열 다 처리할수 있도록 지정
-    if(this.inputInfo.length!==0){
-        this.makeInput();
-    }
     this.input = prompt('cube>');
     if(this.rightInfo.includes(this.input)===false && this.leftInfo.includes(this.input)===false){
-        this.limitRange();
+        return this.limitRange();
     }
     this.decideLine();
 }
@@ -57,12 +55,13 @@ cube.setData = function() {
 // 입력값 범위 제한하기
 cube.limitRange = function() {
     this.inputInfo =this.input.split('');
+    this.type='string';
     for(let i=0; i<this.inputInfo.length; i++) {
         if(this.allInfo.includes(this.inputInfo[i])===false) {
             return alert("입력형식에 벋어납니다.");
         }
     }
-    this.makeInput();
+    return this.makeInput();
 }
 
 // 문자열 받을시 input 재생성
@@ -72,7 +71,13 @@ cube.makeInput = function() {
         this.inputInfo.shift();
         this.input += "'";
     }
-    this.decideLine();
+    if(this.input==="Q"){
+        this.q='q';
+    }
+    if(this.input===undefined && this.q!=='q'){
+        return this.setData();
+    }
+    return this.decideLine();
 }
 
 // decide line to move 라인 결정하기
@@ -100,12 +105,12 @@ cube.decideShift = function(line) {
     if(this.rightInfo.includes(this.input)===true){
         let sline = line.pop();
         line.unshift(sline);
-        this.updateOtherLine(line);
+        return this.updateOtherLine(line);
     }
     else if(this.leftInfo.includes(this.input)===true){
         let sline = line.shift();
         line.push(sline);
-        this.updateOtherLine(line);
+        return this.updateOtherLine(line);
     }
 }
 
@@ -153,7 +158,10 @@ cube.createNew = function(line) {
         }
     }
     console.log(this.input);
-    this.setData();
+    if(this.type==='string'){
+        return this.makeInput();
+    }
+    return this.setData();
 }
 
 cube.makeOthers();
