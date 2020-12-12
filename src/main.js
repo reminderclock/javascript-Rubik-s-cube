@@ -4,6 +4,7 @@ cube.right = [];
 cube.top=[];
 cube.bottom =[];
 cube.center = [];
+cube.middle = [];
 cube.rowInfo = [];
 cube.columnInfo = [];
 cube.proto='';
@@ -18,12 +19,14 @@ cube.makeOthers = function() {
     this.right=["W", "W", "B"];
     this.top=["R", "R", "W"];
     this.bottom=["G", "B", "B"];
+    this.center=["G", "C", "W"];
+    this.middle =["R", "C", "B"]; 
     this.makeFrist();
 }
 // 이차원 배열 만들기
 cube.makeFrist = function() {
-    this.rowInfo=[this.top, ["G", "C", "W"], this.bottom];
-    this.columnInfo=[this.left, ["R","C","B"], this.right];
+    this.rowInfo=[this.top, this.center, this.bottom];
+    this.columnInfo=[this.left, this.middle, this.right];
     this.frist();
 }
 
@@ -65,18 +68,43 @@ cube.decideLine = function() {
     }
 } 
 
-// right or left Shift 방향 결정하기
+// right or left 이동하는 방향에 맞는 Pushing
 cube.decideShift = function(line) {
-    if(this.rightInfo.includes(this.input)){
+    if(this.rightInfo.includes(this.input)===true){
         let sline = line.pop();
         line.unshift(sline);
-        this.createNew(line);
+        this.updateOtherLine(line);
     }
-    else if(this.leftInfo.includes(this.input)){
+    else if(this.leftInfo.includes(this.input)===true){
         let sline = line.shift();
         line.push(sline);
-        this.createNew(line);
+        this.updateOtherLine(line);
     }
+}
+
+// U,U',B,B'<-->R,R',L,L' 이동시 서로에 이동된 배열 적용
+cube.updateOtherLine = function(line) {
+    if(line===this.left) {
+        this.top[0] = line[0];
+        this.center[0] = line[1];
+        this.bottom[0] = line[2];
+    }
+    else if(line ===this.right){
+        this.top[2] = line[0];
+        this.center[2] = line[1];
+        this.bottom[2] = line[2];
+    }
+    else if(line ===this.top) {
+        this.left[0] = line[0];
+        this.right[0]= line[2];
+        this.middle[0] = line[1];
+    }
+    else if(line ===this.bottom) {
+        this.left[2] = line[0];
+        this.middle[2] = line[1];
+        this.right[2] = line[2];
+    }
+    this.createNew(line);
 }
 
 // create New Cube 새로운 큐브 생성하기 
@@ -88,7 +116,6 @@ cube.createNew = function(line) {
                 this.input += `${this.rowInfo[i][j]} `;
             }
         }
-        console.log(this.input);
     }
     else if(this.columnInfo.includes(line)===true){
         for(let i=0; i<3; i++) {
@@ -97,9 +124,10 @@ cube.createNew = function(line) {
                 this.input += `${this.columnInfo[j][i]} `;
             }
         }
-        console.log(this.input);
     }
+    console.log(this.input);
     this.setData();
 }
 
 cube.makeOthers();
+
