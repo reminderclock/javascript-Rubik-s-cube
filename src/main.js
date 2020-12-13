@@ -42,6 +42,9 @@ function decideCase(){
     case "U":
     rotateUp();
     break;
+    case "U2":
+    rotateUp();rotateUp();
+    break;
     case "U'":
     rotateUp();rotateUp();rotateUp();
     break;
