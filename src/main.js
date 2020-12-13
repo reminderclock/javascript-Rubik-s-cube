@@ -40,17 +40,39 @@ function setData() {
 function decideCase(){
     switch(main.input) {
     case "U":
-    // rotateUp();
+    rotateUp();
     break;
     case "U'":
-    // rotateUp();rotateUp();rotateUp();
+    rotateUp();rotateUp();rotateUp();
     break;
+    case "L":
+    rotateLeft();
+    break;
+    case "L'":
+    rotateLeft();rotateLeft();rotateLeft();
+    break; 
     case "Q":
     return console.log("~bye");     
     }
 }
 
-// 윗면 이동 함수
+// 왼쪽면(white) 이동 함수 
+function rotateLeft() {
+    for(let i=0; i<9; i++) {
+        for(let j=0; j<21; j++) {
+            main.temp[i][j] = main.info[i][j];
+        }
+    }
+    for(let i=0; i<3; i++) {
+        main.info[8-i][9] = main.temp[5-i][6];
+        main.info[5-i][6] = main.temp[2-i][9];
+        main.info[2-i][9] = main.temp[3+i][20];
+        main.info[3+i][20] = main.temp[8-i][9];
+    }
+    createNewCube();
+}
+
+// 윗면(orange) 이동 함수
 function rotateUp() {
     for(let i=0; i<9; i++) {
         for(let j=0; j<21; j++) {
