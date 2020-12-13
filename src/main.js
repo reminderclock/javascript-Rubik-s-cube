@@ -10,6 +10,17 @@ main.info=[];
 main.proto=[];
 main.input='';
 main.temp=[[],[],[],[],[],[],[],[],[]];
+main.rever=["U'","R'","F'","L'"];
+main.two = 'U2';
+main.cnt=0;
+main.shiftInfo = ["U","U'","R","R'","L","L'","F","F'","Q"];
+main.inputInfo=[];
+main.allInfo = ["R","U","F","L","Q","'","2"];
+main.type='';
+main.q='';
+main.realCnt=0;
+
+// 기본 2차원 배열 생성
 main.createInfo = function() {
     this.info = [[this.empty,this.empty,this.empty,this.empty,this.empty,this.empty,this.empty,this.empty,this.empty,this.blue, this.blue,this.blue,this.empty,this.empty,this.empty,this.empty,this.empty,this.empty,this.empty,this.empty,this.empty],
                 [this.empty,this.empty,this.empty,this.empty,this.empty,this.empty,this.empty,this.empty,this.empty,this.blue, this.blue,this.blue,this.empty,this.empty,this.empty,this.empty,this.empty,this.empty,this.empty,this.empty,this.empty],
@@ -22,6 +33,8 @@ main.createInfo = function() {
                 [this.empty,this.empty,this.empty,this.empty,this.empty,this.empty,this.empty,this.empty,this.empty,this.red, this.red,this.red,this.empty,this.empty,this.empty,this.empty,this.empty,this.empty,this.empty,this.empty,this.empty]];
                 this.makefrist();
 }
+
+// 초기 형태 만듬.
 main.makefrist= function() {
         this.info.forEach( (arr) => {
             this.proto += arr.join(' ') + '\n';
@@ -32,8 +45,43 @@ main.makefrist= function() {
 
 // 데이터 입력 받는 부분 추가
 function setData() {
-    main.input = prompt('cube>');
+    main.input = prompt(`R U L F R' U' L' F' U2 Q 조합만 입력가능합니다.\ncube>`);
+    if(main.shiftInfo.includes(main.input)===false){
+        return limitRange();
+    }
     decideCase();
+}
+
+// 범위 제한
+function limitRange() {
+    main.inputInfo =main.input.split('');
+    main.type='string';
+    for(let i=0; i<main.inputInfo.length; i++) {
+        if(main.allInfo.includes(main.inputInfo[i])===false) {
+            return alert("입력형식에 벋어납니다.");
+        }
+    }
+    return makeInput();
+}
+
+// 연속된 문자열 처리 
+function makeInput() {
+    main.input = main.inputInfo.shift();
+    if(main.inputInfo[0]==="'"){
+        main.inputInfo.shift();
+        main.input += "'";
+    }
+    else if(main.inputInfo[0]==="2"){
+        main.inputInfo.shift();
+        main.input += "2";
+    }
+    if(main.input==="Q"){
+        main.q='q';
+    }
+    if(main.input===undefined && main.q!=='q'){
+        return setData();
+    }
+    return decideCase();
 }
 
 // 입력 케이스별 함수 호출
@@ -41,6 +89,9 @@ function decideCase(){
     switch(main.input) {
     case "U":
     rotateUp();
+    break;
+    case "U2":
+    rotateUp();rotateUp();
     break;
     case "U'":
     rotateUp();rotateUp();rotateUp();
@@ -64,9 +115,26 @@ function decideCase(){
     rotateFront();rotateFront();rotateFront();
     break; 
     case "Q":
-    return console.log("~bye");     
+    return endGame();     
     }
 }
+
+// 종료 되는 부분 추가
+function endGame() {
+    let t2 = Date.now();
+    let time = Math.floor((t2-t1)/1000);
+    let minute = 0;
+    let second = 0;
+    while(time>=60){
+        minute++;
+        time -= 60;
+    }
+    second = time;
+    console.log(`경과시간: ${minute}분:${second}초`);
+    console.log(`조작개수: ${main.realCnt}`);
+    console.log("이용해주셔서 감사합니다. 뚜뚜뚜");
+}
+
 
 // 앞쪽면(red) 이동함수
 function rotateFront() {
@@ -135,11 +203,52 @@ function rotateUp() {
 
 // 적용된 배열로 새로운 큐브 구현
 function createNewCube() {
+    if(main.input==="Q"){
+        return;
+    }
     let newCube='';
+    newCube += main.input + '\n';
     main.info.forEach( (arr) => {
         newCube += arr.join(' ') + '\n';
     });
+    main.cnt++;
+    if(main.rever.includes(main.input)===true) {
+        return viewRever(main.cnt, newCube);
+    }
+    if(main.input===main.two){
+        return viewU2(main.cnt, newCube);
+    }
+    main.realCnt++;
     console.log(newCube);
+    if(main.type==='string'){
+        return makeInput();
+    }
+    setData();
 }
 
+// 반대방향 case 출력
+function viewRever(cnt, newCube) {
+    if(cnt%3===0) {
+        main.realCnt++;
+        console.log(newCube);
+        if(main.type==='string'){
+            return makeInput();
+        }
+        return setData();
+    }
+}
+
+// 180도 회전 출력-> U2
+function viewU2(cnt, newCube) {
+    if(cnt%2===0) {
+        main.realCnt += 2;
+        console.log(newCube);
+        if(main.type==='string'){
+            return makeInput();
+        }
+        return setData();
+    }
+}
+
+let t1 = Date.now();
 main.createInfo();
