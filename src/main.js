@@ -32,8 +32,23 @@ main.makefrist= function() {
 // 데이터 입력 받는 부분 추가
 function setData() {
     main.input = prompt('cube>');
-    // decideCase();
+    decideCase();
 }
+
+// 입력 케이스별 함수 호출
+function decideCase(){
+    switch(main.input) {
+    case "U":
+    // rotateUp();
+    break;
+    case "U'":
+    // rotateUp();rotateUp();rotateUp();
+    break;
+    case "Q":
+    return console.log("~bye");     
+    }
+}
+
 
 
 main.createInfo();
