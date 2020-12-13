@@ -50,10 +50,32 @@ function decideCase(){
     break;
     case "L'":
     rotateLeft();rotateLeft();rotateLeft();
+    case "R":
+    rotateRight();
+    break;
+    case "R'":
+    rotateRight();rotateRight();rotateRight();
     break; 
     case "Q":
     return console.log("~bye");     
     }
+}
+
+// 오른쪽면(green) 이동 함수
+function rotateRight() {
+    for(let i=0; i<9; i++) {
+        for(let j=0; j<21; j++) {
+            main.temp[i][j] = main.info[i][j];
+        }
+    }
+    for(let i=0; i<3; i++) {
+        main.info[i][11] = main.temp[3+i][8];
+        main.info[3+i][8] = main.temp[6+i][11];
+        main.info[6+i][11] = main.temp[5-i][18];
+        main.info[5-i][18] = main.temp[i][11];
+    }
+    createNewCube();
+
 }
 
 // 왼쪽면(white) 이동 함수 
