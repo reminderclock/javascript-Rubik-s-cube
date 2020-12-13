@@ -63,9 +63,16 @@ function rotateUp() {
         main.info[6][i] = temp[12-i][10];
         main.info[i-6][2] = temp[4][i-2];
     }
-    // createNewCube();
+    createNewCube();
 }
 
-
+// 적용된 배열로 새로운 큐브 구현
+function createNewCube() {
+    let newCube='';
+    main.info.forEach( (arr) => {
+        newCube += arr.join(' ') + '\n';
+    });
+    console.log(newCube);
+}
 
 main.createInfo();
