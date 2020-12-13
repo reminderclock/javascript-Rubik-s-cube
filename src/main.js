@@ -45,7 +45,7 @@ main.makefrist= function() {
 
 // 데이터 입력 받는 부분 추가
 function setData() {
-    main.input = prompt('cube>');
+    main.input = prompt(`R U L F R' U' L' F' U2 Q 조합만 입력가능합니다.\ncube>`);
     if(main.shiftInfo.includes(main.input)===false){
         return limitRange();
     }
