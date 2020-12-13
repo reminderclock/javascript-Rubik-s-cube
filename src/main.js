@@ -10,6 +10,9 @@ main.info=[];
 main.proto=[];
 main.input='';
 main.temp=[[],[],[],[],[],[],[],[],[]];
+main.rever=["U'","R'","F'","L'"];
+main.two = 'U2';
+main.cnt=0;
 main.createInfo = function() {
     this.info = [[this.empty,this.empty,this.empty,this.empty,this.empty,this.empty,this.empty,this.empty,this.empty,this.blue, this.blue,this.blue,this.empty,this.empty,this.empty,this.empty,this.empty,this.empty,this.empty,this.empty,this.empty],
                 [this.empty,this.empty,this.empty,this.empty,this.empty,this.empty,this.empty,this.empty,this.empty,this.blue, this.blue,this.blue,this.empty,this.empty,this.empty,this.empty,this.empty,this.empty,this.empty,this.empty,this.empty],
@@ -139,10 +142,32 @@ function rotateUp() {
 // 적용된 배열로 새로운 큐브 구현
 function createNewCube() {
     let newCube='';
+    newCube += main.input + '\n';
     main.info.forEach( (arr) => {
         newCube += arr.join(' ') + '\n';
     });
+    main.cnt++;
+    if(main.rever.includes(main.input)===true) {
+        return viewRever(main.cnt, newCube);
+    }
+    if(main.input===main.two){
+        return viewU2(main.cnt, newCube);
+    }
     console.log(newCube);
+}
+
+// 반대방향 case 출력
+function viewRever(cnt, newCube) {
+    if(cnt===3) {
+        console.log(newCube);
+    }
+}
+
+// 180도 회전 출력-> U2
+function viewU2(cnt, newCube) {
+    if(cnt===2) {
+        console.log(newCube);
+    }
 }
 
 main.createInfo();
