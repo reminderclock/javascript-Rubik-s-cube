@@ -180,6 +180,9 @@ function rotateUp() {
 
 // 적용된 배열로 새로운 큐브 구현
 function createNewCube() {
+    if(main.input==="Q"){
+        return;
+    }
     let newCube='';
     newCube += main.input + '\n';
     main.info.forEach( (arr) => {
