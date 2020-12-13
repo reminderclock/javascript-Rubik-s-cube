@@ -8,6 +8,7 @@ main.green='G';
 main.empty=' ';
 main.info=[];
 main.proto=[];
+main.input='';
 main.createInfo = function() {
     this.info = [[this.empty,this.empty,this.empty,this.empty,this.empty,this.empty,this.empty,this.empty,this.empty,this.blue, this.blue,this.blue,this.empty,this.empty,this.empty,this.empty,this.empty,this.empty,this.empty,this.empty,this.empty],
                 [this.empty,this.empty,this.empty,this.empty,this.empty,this.empty,this.empty,this.empty,this.empty,this.blue, this.blue,this.blue,this.empty,this.empty,this.empty,this.empty,this.empty,this.empty,this.empty,this.empty,this.empty],
@@ -25,7 +26,13 @@ main.makefrist= function() {
             this.proto += arr.join(' ') + '\n';
         });
         console.log(this.proto);
-        // rotateUp();
+        setData();
+}
+
+// 데이터 입력 받는 부분 추가
+function setData() {
+    main.input = prompt('cube>');
+    // decideCase();
 }
 
 
