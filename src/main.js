@@ -18,6 +18,7 @@ main.inputInfo=[];
 main.allInfo = ["R","U","F","L","Q","'","2"];
 main.type='';
 main.q='';
+main.realCnt=0;
 main.createInfo = function() {
     this.info = [[this.empty,this.empty,this.empty,this.empty,this.empty,this.empty,this.empty,this.empty,this.empty,this.blue, this.blue,this.blue,this.empty,this.empty,this.empty,this.empty,this.empty,this.empty,this.empty,this.empty,this.empty],
                 [this.empty,this.empty,this.empty,this.empty,this.empty,this.empty,this.empty,this.empty,this.empty,this.blue, this.blue,this.blue,this.empty,this.empty,this.empty,this.empty,this.empty,this.empty,this.empty,this.empty,this.empty],
@@ -109,8 +110,24 @@ function decideCase(){
     rotateFront();rotateFront();rotateFront();
     break; 
     case "Q":
-    return console.log("~bye");     
+    return endGame();     
     }
+}
+
+// 종료 되는 부분 추가
+function endGame() {
+    let t2 = Date.now();
+    let time = Math.floor((t2-t1)/1000);
+    let minute = 0;
+    let second = 0;
+    while(time>=60){
+        minute++;
+        time -= 60;
+    }
+    second = time;
+    console.log(`경과시간: ${minute}분:${second}초`);
+    console.log(`조작개수: ${main.realCnt}`);
+    console.log("이용해주셔서 감사합니다. 뚜뚜뚜");
 }
 
 // 앞쪽면(red) 이동함수
@@ -195,6 +212,7 @@ function createNewCube() {
     if(main.input===main.two){
         return viewU2(main.cnt, newCube);
     }
+    main.realCnt++;
     console.log(newCube);
     if(main.type==='string'){
         return makeInput();
@@ -205,6 +223,7 @@ function createNewCube() {
 // 반대방향 case 출력
 function viewRever(cnt, newCube) {
     if(cnt%3===0) {
+        main.realCnt++;
         console.log(newCube);
         if(main.type==='string'){
             return makeInput();
@@ -216,13 +235,14 @@ function viewRever(cnt, newCube) {
 // 180도 회전 출력-> U2
 function viewU2(cnt, newCube) {
     if(cnt%2===0) {
+        main.realCnt += 2;
         console.log(newCube);
-
+        if(main.type==='string'){
+            return makeInput();
+        }
+        return setData();
     }
-    if(main.type==='string'){
-        return makeInput();
-    }
-    return setData();
 }
 
+let t1 = Date.now();
 main.createInfo();
