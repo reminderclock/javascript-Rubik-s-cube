@@ -17,6 +17,7 @@ main.shiftInfo = ["U","U'","R","R'","L","L'","F","F'","Q"];
 main.inputInfo=[];
 main.allInfo = ["R","U","F","L","Q","'","2"];
 main.type='';
+main.q='';
 main.createInfo = function() {
     this.info = [[this.empty,this.empty,this.empty,this.empty,this.empty,this.empty,this.empty,this.empty,this.empty,this.blue, this.blue,this.blue,this.empty,this.empty,this.empty,this.empty,this.empty,this.empty,this.empty,this.empty,this.empty],
                 [this.empty,this.empty,this.empty,this.empty,this.empty,this.empty,this.empty,this.empty,this.empty,this.blue, this.blue,this.blue,this.empty,this.empty,this.empty,this.empty,this.empty,this.empty,this.empty,this.empty,this.empty],
@@ -45,6 +46,8 @@ function setData() {
     }
     decideCase();
 }
+
+// 범위 제한
 function limitRange() {
     main.inputInfo =main.input.split('');
     main.type='string';
@@ -53,7 +56,26 @@ function limitRange() {
             return alert("입력형식에 벋어납니다.");
         }
     }
-    // return makeInput();
+    return makeInput();
+}
+
+function makeInput() {
+    main.input = main.inputInfo.shift();
+    if(main.inputInfo[0]==="'"){
+        main.inputInfo.shift();
+        main.input += "'";
+    }
+    else if(main.inputInfo[0]==="2"){
+        main.inputInfo.shift();
+        main.input += "2";
+    }
+    if(main.input==="Q"){
+        main.q='q';
+    }
+    if(main.input===undefined && main.q!=='q'){
+        return setData();
+    }
+    return decideCase();
 }
 
 // 입력 케이스별 함수 호출
@@ -171,20 +193,33 @@ function createNewCube() {
         return viewU2(main.cnt, newCube);
     }
     console.log(newCube);
+    if(main.type==='string'){
+        return makeInput();
+    }
+    setData();
 }
 
 // 반대방향 case 출력
 function viewRever(cnt, newCube) {
-    if(cnt===3) {
+    if(cnt%3===0) {
         console.log(newCube);
+        if(main.type==='string'){
+            return makeInput();
+        }
+        return setData();
     }
 }
 
 // 180도 회전 출력-> U2
 function viewU2(cnt, newCube) {
-    if(cnt===2) {
+    if(cnt%2===0) {
         console.log(newCube);
+
     }
+    if(main.type==='string'){
+        return makeInput();
+    }
+    return setData();
 }
 
 main.createInfo();
