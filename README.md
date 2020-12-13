@@ -36,3 +36,9 @@
 12. 조작된 배열을 출력시켜줄(반시계방향 Case) `viewRever()`
 13. 조작된 배열을 출력시켜줄(180도 회전(U2)) `viewU2()`
 14. 종료시 시간, 조작개수, 종료인사를 출력시켜줄 `endGame()`
+
+### 출력결과
+
+<img width="419" alt="초기창" src="https://user-images.githubusercontent.com/71510362/102019953-98660900-3db9-11eb-907e-6c8506e0d41b.PNG">
+
+<img width="306" alt="결과창" src="https://user-images.githubusercontent.com/71510362/102019989-c3e8f380-3db9-11eb-9b27-c1eb547da8a1.PNG">
