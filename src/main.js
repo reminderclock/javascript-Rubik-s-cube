@@ -13,6 +13,10 @@ main.temp=[[],[],[],[],[],[],[],[],[]];
 main.rever=["U'","R'","F'","L'"];
 main.two = 'U2';
 main.cnt=0;
+main.shiftInfo = ["U","U'","R","R'","L","L'","F","F'","Q"];
+main.inputInfo=[];
+main.allInfo = ["R","U","F","L","Q","'","2"];
+main.type='';
 main.createInfo = function() {
     this.info = [[this.empty,this.empty,this.empty,this.empty,this.empty,this.empty,this.empty,this.empty,this.empty,this.blue, this.blue,this.blue,this.empty,this.empty,this.empty,this.empty,this.empty,this.empty,this.empty,this.empty,this.empty],
                 [this.empty,this.empty,this.empty,this.empty,this.empty,this.empty,this.empty,this.empty,this.empty,this.blue, this.blue,this.blue,this.empty,this.empty,this.empty,this.empty,this.empty,this.empty,this.empty,this.empty,this.empty],
@@ -36,7 +40,20 @@ main.makefrist= function() {
 // 데이터 입력 받는 부분 추가
 function setData() {
     main.input = prompt('cube>');
+    if(main.shiftInfo.includes(main.input)===false){
+        return limitRange();
+    }
     decideCase();
+}
+function limitRange() {
+    main.inputInfo =main.input.split('');
+    main.type='string';
+    for(let i=0; i<main.inputInfo.length; i++) {
+        if(main.allInfo.includes(main.inputInfo[i])===false) {
+            return alert("입력형식에 벋어납니다.");
+        }
+    }
+    // return makeInput();
 }
 
 // 입력 케이스별 함수 호출
