@@ -8,6 +8,8 @@ main.green='G';
 main.empty=' ';
 main.info=[];
 main.proto=[];
+main.input='';
+main.temp=[[],[],[],[],[],[],[],[],[]];
 main.createInfo = function() {
     this.info = [[this.empty,this.empty,this.empty,this.empty,this.empty,this.empty,this.empty,this.empty,this.empty,this.blue, this.blue,this.blue,this.empty,this.empty,this.empty,this.empty,this.empty,this.empty,this.empty,this.empty,this.empty],
                 [this.empty,this.empty,this.empty,this.empty,this.empty,this.empty,this.empty,this.empty,this.empty,this.blue, this.blue,this.blue,this.empty,this.empty,this.empty,this.empty,this.empty,this.empty,this.empty,this.empty,this.empty],
@@ -25,8 +27,119 @@ main.makefrist= function() {
             this.proto += arr.join(' ') + '\n';
         });
         console.log(this.proto);
-        // rotateUp();
+        setData();
 }
 
+// 데이터 입력 받는 부분 추가
+function setData() {
+    main.input = prompt('cube>');
+    decideCase();
+}
+
+// 입력 케이스별 함수 호출
+function decideCase(){
+    switch(main.input) {
+    case "U":
+    rotateUp();
+    break;
+    case "U'":
+    rotateUp();rotateUp();rotateUp();
+    break;
+    case "L":
+    rotateLeft();
+    break;
+    case "L'":
+    rotateLeft();rotateLeft();rotateLeft();
+    break;
+    case "R":
+    rotateRight();
+    break;
+    case "R'":
+    rotateRight();rotateRight();rotateRight();
+    break; 
+    case "F":
+    rotateFront();
+    break;
+    case "F'":
+    rotateFront();rotateFront();rotateFront();
+    break; 
+    case "Q":
+    return console.log("~bye");     
+    }
+}
+
+// 앞쪽면(red) 이동함수
+function rotateFront() {
+    for(let i=0; i<9; i++) {
+        for(let j=0; j<21; j++) {
+            main.temp[i][j] = main.info[i][j];
+        }
+    }
+    for(let i=0; i<3; i++) {
+        main.info[5][12+i] = main.temp[5][6+i];
+        main.info[5][6+i] = main.temp[5][i];
+        main.info[5][i] = main.temp[5][18+i];
+        main.info[5][18+i] = main.temp[5][12+i];
+    }
+    createNewCube();
+}
+
+// 오른쪽면(green) 이동 함수
+function rotateRight() {
+    for(let i=0; i<9; i++) {
+        for(let j=0; j<21; j++) {
+            main.temp[i][j] = main.info[i][j];
+        }
+    }
+    for(let i=0; i<3; i++) {
+        main.info[i][11] = main.temp[3+i][8];
+        main.info[3+i][8] = main.temp[6+i][11];
+        main.info[6+i][11] = main.temp[5-i][18];
+        main.info[5-i][18] = main.temp[i][11];
+    }
+    createNewCube();
+
+}
+
+// 왼쪽면(white) 이동 함수 
+function rotateLeft() {
+    for(let i=0; i<9; i++) {
+        for(let j=0; j<21; j++) {
+            main.temp[i][j] = main.info[i][j];
+        }
+    }
+    for(let i=0; i<3; i++) {
+        main.info[8-i][9] = main.temp[5-i][6];
+        main.info[5-i][6] = main.temp[2-i][9];
+        main.info[2-i][9] = main.temp[3+i][20];
+        main.info[3+i][20] = main.temp[8-i][9];
+    }
+    createNewCube();
+}
+
+// 윗면(orange) 이동 함수
+function rotateUp() {
+    for(let i=0; i<9; i++) {
+        for(let j=0; j<21; j++) {
+            main.temp[i][j] = main.info[i][j];
+        }
+    }
+    for(let i=0; i<3; i++) {
+        main.info[5-i][12] = main.temp[2][11-i];
+        main.info[6][9+i] = main.temp[5-i][12];
+        main.info[3+i][2] = main.temp[6][9+i];
+        main.info[2][11-i] = main.temp[3+i][2];
+    }
+    createNewCube();
+}
+
+// 적용된 배열로 새로운 큐브 구현
+function createNewCube() {
+    let newCube='';
+    main.info.forEach( (arr) => {
+        newCube += arr.join(' ') + '\n';
+    });
+    console.log(newCube);
+}
 
 main.createInfo();
