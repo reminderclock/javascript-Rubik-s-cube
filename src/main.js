@@ -49,6 +49,23 @@ function decideCase(){
     }
 }
 
+// 윗면 이동 함수
+function rotateUp() {
+    let temp = [[],[],[],[],[]];
+    for(let i=2; i<7; i++) {
+        for(let j=2; j<13; j++) {
+            temp[i-2][j-2] = main.info[i][j];
+        }
+    }
+    for(let i=8; i<13; i++) {
+        main.info[2][i] = temp[12-i][0];
+        main.info[14-i][12] = temp[0][18-i];
+        main.info[6][i] = temp[12-i][10];
+        main.info[i-6][2] = temp[4][i-2];
+    }
+    // createNewCube();
+}
+
 
 
 main.createInfo();
