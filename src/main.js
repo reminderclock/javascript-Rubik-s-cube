@@ -19,6 +19,8 @@ main.allInfo = ["R","U","F","L","Q","'","2"];
 main.type='';
 main.q='';
 main.realCnt=0;
+
+// 기본 2차원 배열 생성
 main.createInfo = function() {
     this.info = [[this.empty,this.empty,this.empty,this.empty,this.empty,this.empty,this.empty,this.empty,this.empty,this.blue, this.blue,this.blue,this.empty,this.empty,this.empty,this.empty,this.empty,this.empty,this.empty,this.empty,this.empty],
                 [this.empty,this.empty,this.empty,this.empty,this.empty,this.empty,this.empty,this.empty,this.empty,this.blue, this.blue,this.blue,this.empty,this.empty,this.empty,this.empty,this.empty,this.empty,this.empty,this.empty,this.empty],
@@ -31,6 +33,8 @@ main.createInfo = function() {
                 [this.empty,this.empty,this.empty,this.empty,this.empty,this.empty,this.empty,this.empty,this.empty,this.red, this.red,this.red,this.empty,this.empty,this.empty,this.empty,this.empty,this.empty,this.empty,this.empty,this.empty]];
                 this.makefrist();
 }
+
+// 초기 형태 만듬.
 main.makefrist= function() {
         this.info.forEach( (arr) => {
             this.proto += arr.join(' ') + '\n';
@@ -60,6 +64,7 @@ function limitRange() {
     return makeInput();
 }
 
+// 연속된 문자열 처리 
 function makeInput() {
     main.input = main.inputInfo.shift();
     if(main.inputInfo[0]==="'"){
@@ -129,6 +134,7 @@ function endGame() {
     console.log(`조작개수: ${main.realCnt}`);
     console.log("이용해주셔서 감사합니다. 뚜뚜뚜");
 }
+
 
 // 앞쪽면(red) 이동함수
 function rotateFront() {
