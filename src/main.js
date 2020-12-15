@@ -20,6 +20,7 @@ main.type='';
 main.q='';
 main.realCnt=0;
 main.clone=[[],[],[],[],[],[],[],[],[]];
+main.random=[];
 
 // 기본 2차원 배열 생성
 main.createInfo = function() {
@@ -43,12 +44,40 @@ main.createInfo = function() {
 
 // 초기 형태 만듬.
 main.makefrist= function() {
-        this.info.forEach( (arr) => {
-            this.proto += arr.join(' ') + '\n';
-        });
-        console.log(this.proto);
-        setData();
+    this.proto=[];
+    this.info.forEach( (arr) => {
+        this.proto += arr.join(' ') + '\n';
+    });
+    console.log(this.proto);
+    // setData();
 }
+
+// 무작위 버튼 클릭스 무작위로 큐브 생성
+main.makeRandom = function() {
+    let random = 'BBBBBBBBWWWWWWWWOOOOOOOORRRRRRRRGGGGGGGGYYYYYYYY'.split('');
+    random.sort(() => Math.random() - 0.5);
+    this.random = [[this.empty,this.empty,this.empty,this.empty,this.empty,this.empty,this.empty,this.empty,this.empty,random[0], random[1],random[2],this.empty,this.empty,this.empty,this.empty,this.empty,this.empty,this.empty,this.empty,this.empty],
+    [this.empty,this.empty,this.empty,this.empty,this.empty,this.empty,this.empty,this.empty,this.empty,random[3], this.blue, random[4],this.empty,this.empty,this.empty,this.empty,this.empty,this.empty,this.empty,this.empty,this.empty],
+    [this.empty,this.empty,this.empty,this.empty,this.empty,this.empty,this.empty,this.empty,this.empty,random[5], random[6],random[7],this.empty,this.empty,this.empty,this.empty,this.empty,this.empty,this.empty,this.empty,this.empty],
+    [random[8],random[9],random[10],this.empty,this.empty, this.empty, random[16],random[17], random[18], this.empty, this.empty, this.empty, random[24], random[25], random[26], this.empty, this.empty, this.empty, random[32], random[33], random[34]],
+    [random[11],this.white,random[12],this.empty,this.empty, this.empty, random[19], this.orange, random[20], this.empty, this.empty, this.empty, random[27], this.green, random[28], this.empty, this.empty, this.empty, random[35], this.yellow, random[36]],
+    [random[13],random[14],random[15],this.empty,this.empty, this.empty, random[21], random[22], random[23], this.empty, this.empty, this.empty, random[29], random[30], random[31], this.empty, this.empty, this.empty, random[37], random[38], random[39]],
+    [this.empty,this.empty,this.empty,this.empty,this.empty,this.empty,this.empty,this.empty,this.empty,random[40], random[41],random[42],this.empty,this.empty,this.empty,this.empty,this.empty,this.empty,this.empty,this.empty,this.empty],
+    [this.empty,this.empty,this.empty,this.empty,this.empty,this.empty,this.empty,this.empty,this.empty,random[43], this.red,random[44],this.empty,this.empty,this.empty,this.empty,this.empty,this.empty,this.empty,this.empty,this.empty],
+    [this.empty,this.empty,this.empty,this.empty,this.empty,this.empty,this.empty,this.empty,this.empty,random[45], random[46],random[47],this.empty,this.empty,this.empty,this.empty,this.empty,this.empty,this.empty,this.empty,this.empty]];
+    for(let i=0; i<9; i++) {
+        for(let j=0; j<21; j++) {
+            main.info[i][j] = main.random[i][j];
+        }
+    }
+    this.makefrist();
+}
+
+// 시작하기 
+function startJust() {
+    setData();
+}
+
 
 // 데이터 입력 받는 부분 추가
 function setData() {
