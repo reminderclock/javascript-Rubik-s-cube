@@ -19,6 +19,7 @@ main.allInfo = ["R","U","F","L","Q","'","2"];
 main.type='';
 main.q='';
 main.realCnt=0;
+main.clone=[[],[],[],[],[],[],[],[],[]];
 
 // 기본 2차원 배열 생성
 main.createInfo = function() {
@@ -31,7 +32,13 @@ main.createInfo = function() {
                 [this.empty,this.empty,this.empty,this.empty,this.empty,this.empty,this.empty,this.empty,this.empty,this.red, this.red,this.red,this.empty,this.empty,this.empty,this.empty,this.empty,this.empty,this.empty,this.empty,this.empty],
                 [this.empty,this.empty,this.empty,this.empty,this.empty,this.empty,this.empty,this.empty,this.empty,this.red, this.red,this.red,this.empty,this.empty,this.empty,this.empty,this.empty,this.empty,this.empty,this.empty,this.empty],
                 [this.empty,this.empty,this.empty,this.empty,this.empty,this.empty,this.empty,this.empty,this.empty,this.red, this.red,this.red,this.empty,this.empty,this.empty,this.empty,this.empty,this.empty,this.empty,this.empty,this.empty]];
+                for (let i = 0; i < 9; i++) {
+                    for (let j = 0; j < 21; j++) {
+                        main.clone[i][j] = main.info[i][j];
+                    }
+                }
                 this.makefrist();
+
 }
 
 // 초기 형태 만듬.
@@ -115,7 +122,7 @@ function decideCase(){
     rotateFront();rotateFront();rotateFront();
     break; 
     case "Q":
-    return endGame();     
+    return addMessage();     
     }
 }
 
@@ -133,6 +140,22 @@ function endGame() {
     console.log(`경과시간: ${minute}분:${second}초`);
     console.log(`조작개수: ${main.realCnt}`);
     console.log("이용해주셔서 감사합니다. 뚜뚜뚜");
+}
+
+// 전부 맞추었을 경우 축하메세지 출력
+function addMessage() {
+    let fristCube='';
+    let newCube='';
+    main.clone.forEach((arr) => {
+        fristCube += arr.join(' ') + '\n';
+    });
+    main.info.forEach((arr) => {
+        newCube += arr.join(' ') + '\n';
+    });
+    if(newCube===fristCube){
+        console.log("축하합니다. 모두 맞추었습니다!!")
+    }
+    endGame();
 }
 
 
