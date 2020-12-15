@@ -211,12 +211,14 @@ function createNewCube() {
     main.info.forEach( (arr) => {
         newCube += arr.join(' ') + '\n';
     });
-    main.cnt++;
-    if(main.rever.includes(main.input)===true) {
-        return viewRever(main.cnt, newCube);
+    if(main.rever.includes(main.input) || (main.input===main.two)) {
+        main.cnt++;
     }
-    if(main.input===main.two){
-        return viewU2(main.cnt, newCube);
+    if(main.rever.includes(main.input)===true) {
+        return viewRever(newCube);
+    }
+    else if(main.input===main.two){
+        return viewU2(newCube);
     }
     main.realCnt++;
     console.log(newCube);
@@ -227,8 +229,9 @@ function createNewCube() {
 }
 
 // 반대방향 case 출력
-function viewRever(cnt, newCube) {
-    if(cnt%3===0) {
+function viewRever(newCube) {
+    if(main.cnt===3) {
+        main.cnt=0;
         main.realCnt++;
         console.log(newCube);
         if(main.type==='string'){
@@ -239,8 +242,9 @@ function viewRever(cnt, newCube) {
 }
 
 // 180도 회전 출력-> U2
-function viewU2(cnt, newCube) {
-    if(cnt%2===0) {
+function viewU2(newCube) {
+    if(main.cnt===2) {
+        main.cnt=0;
         main.realCnt += 2;
         console.log(newCube);
         if(main.type==='string'){
