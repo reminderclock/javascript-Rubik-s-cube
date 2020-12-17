@@ -1,11 +1,12 @@
 let main={};
-main.white = 'W';
-main.red = 'R';
-main.yellow='Y';
-main.orange='O';
-main.blue='B';
-main.green='G';
-main.empty=' ';
+main.white = `<span class="white">W</span>`;
+main.red = `<span class="red">R</span>`
+main.yellow=`<span class="yellow">Y</span>`
+main.orange=`<span class="orange">O</span>`
+main.blue=`<span class="blue">B</span>`
+main.green=`<span class="green">G</span>`
+// main.empty= '&#x2003';
+main.empty= `<span class="null">N</span>`;
 main.info=[];
 main.proto=[];
 main.input='';
@@ -45,17 +46,27 @@ main.createInfo = function() {
 main.makefrist= function() {
     this.proto=[];
     this.info.forEach( (arr) => {
-        this.proto += arr.join(' ') + '\n';
+        this.proto += arr.join(' ') + '</br>';
     });
-    console.log(this.proto);
-    // setData();
+    displayProto();
 }
+
+// display 초기큐브
+function displayProto() {
+    let container = document.querySelector('.fristContainer');
+    container.innerHTML = `<div class="fristCube">${main.proto}</div>`;
+}
+
+
 
 // 무작위 버튼 클릭스 무작위로 큐브 생성
 main.makeRandom = function() {
-    let random = 'BBBBBBBBWWWWWWWWOOOOOOOORRRRRRRRGGGGGGGGYYYYYYYY'.split('');
+    let random = [this.blue,this.blue,this.blue,this.blue,this.blue,this.blue,this.blue,this.blue,this.white,this.white,this.white,this.white,this.white,this.white,this.white,this.white,
+    this.orange,this.orange,this.orange,this.orange,this.orange,this.orange,this.orange,this.orange,this.green,this.green,this.green,this.green,this.green,this.green,this.green,this.green,
+    this.yellow,this.yellow,this.yellow,this.yellow,this.yellow,this.yellow,this.yellow,this.yellow,this.red,this.red,this.red,this.red,this.red,this.red,this.red,this.red];
     random.sort(() => Math.random() - 0.5);
-    this.random = [[this.empty,this.empty,this.empty,this.empty,this.empty,this.empty,this.empty,this.empty,this.empty,random[0], random[1],random[2],this.empty,this.empty,this.empty,this.empty,this.empty,this.empty,this.empty,this.empty,this.empty],
+    this.random = 
+    [[this.empty,this.empty,this.empty,this.empty,this.empty,this.empty,this.empty,this.empty,this.empty,random[0], random[1],random[2],this.empty,this.empty,this.empty,this.empty,this.empty,this.empty,this.empty,this.empty,this.empty],
     [this.empty,this.empty,this.empty,this.empty,this.empty,this.empty,this.empty,this.empty,this.empty,random[3], this.blue, random[4],this.empty,this.empty,this.empty,this.empty,this.empty,this.empty,this.empty,this.empty,this.empty],
     [this.empty,this.empty,this.empty,this.empty,this.empty,this.empty,this.empty,this.empty,this.empty,random[5], random[6],random[7],this.empty,this.empty,this.empty,this.empty,this.empty,this.empty,this.empty,this.empty,this.empty],
     [random[8],random[9],random[10],this.empty,this.empty, this.empty, random[16],random[17], random[18], this.empty, this.empty, this.empty, random[24], random[25], random[26], this.empty, this.empty, this.empty, random[32], random[33], random[34]],
@@ -254,20 +265,25 @@ function createNewCube() {
         return;
     }
     let newCube='';
-    newCube += main.input + '\n';
+    newCube += main.input + '</br>';
     main.info.forEach( (arr) => {
-        newCube += arr.join(' ') + '\n';
+        newCube += arr.join(' ') + '</br>';
     });
     if(main.input==="U2"){
         main.realCnt++;
     }
     main.realCnt++;
-    console.log(newCube);
-    if(main.type==='string'){
+    displayNewCube(newCube);
+}
+
+function displayNewCube(newCube) {
+    const container = document.querySelector('.newContainer');
+    container.innerHTML += `<div>${newCube}</div>`;
+        if(main.type==='string'){
         return makeInput();
     }
     setData();
-}
+    }
 
 let t1 = Date.now();
 main.createInfo();
