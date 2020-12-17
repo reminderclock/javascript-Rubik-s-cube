@@ -56,18 +56,18 @@ function displayProto() {
     let container = document.querySelector('.fristContainer');
     container.innerHTML = `<div class="fristCube">${main.proto}</div>`;
     main.proto='';
+    if(main.q!=='q'){
+        return setData();
+    }
 }
 
 
 
 // 무작위 버튼 클릭스 무작위로 큐브 생성
 main.makeRandom = function() {
-    let random = [this.blue,this.blue,this.blue,this.blue,this.blue,this.blue,this.blue,this.blue,this.white,this.white,this.white,this.white,this.white,this.white,this.white,this.white,
-    this.orange,this.orange,this.orange,this.orange,this.orange,this.orange,this.orange,this.orange,this.green,this.green,this.green,this.green,this.green,this.green,this.green,this.green,
-    this.yellow,this.yellow,this.yellow,this.yellow,this.yellow,this.yellow,this.yellow,this.yellow,this.red,this.red,this.red,this.red,this.red,this.red,this.red,this.red];
+    let random = [this.blue,this.blue,this.blue,this.blue,this.blue,this.blue,this.blue,this.blue,this.white,this.white,this.white,this.white,this.white,this.white,this.white,this.white,this.orange,this.orange,this.orange,this.orange,this.orange,this.orange,this.orange,this.orange,this.green,this.green,this.green,this.green,this.green,this.green,this.green,this.green,this.yellow,this.yellow,this.yellow,this.yellow,this.yellow,this.yellow,this.yellow,this.yellow,this.red,this.red,this.red,this.red,this.red,this.red,this.red,this.red];
     random.sort(() => Math.random() - 0.5);
-    this.random = 
-    [[this.empty,this.empty,this.empty,this.empty,this.empty,this.empty,this.empty,this.empty,this.empty,random[0], random[1],random[2],this.empty,this.empty,this.empty,this.empty,this.empty,this.empty,this.empty,this.empty,this.empty],
+    this.random = [[this.empty,this.empty,this.empty,this.empty,this.empty,this.empty,this.empty,this.empty,this.empty,random[0], random[1],random[2],this.empty,this.empty,this.empty,this.empty,this.empty,this.empty,this.empty,this.empty,this.empty],
     [this.empty,this.empty,this.empty,this.empty,this.empty,this.empty,this.empty,this.empty,this.empty,random[3], this.blue, random[4],this.empty,this.empty,this.empty,this.empty,this.empty,this.empty,this.empty,this.empty,this.empty],
     [this.empty,this.empty,this.empty,this.empty,this.empty,this.empty,this.empty,this.empty,this.empty,random[5], random[6],random[7],this.empty,this.empty,this.empty,this.empty,this.empty,this.empty,this.empty,this.empty,this.empty],
     [random[8],random[9],random[10],this.empty,this.empty, this.empty, random[16],random[17], random[18], this.empty, this.empty, this.empty, random[24], random[25], random[26], this.empty, this.empty, this.empty, random[32], random[33], random[34]],
@@ -84,20 +84,25 @@ main.makeRandom = function() {
     this.makefrist();
 }
 
-// 시작하기 
-function startJust() {
-    return setData();
+// 데이터 입력 받는 부분
+function setData() {
+    const inputBox = document.querySelector('input');
+    inputBox.addEventListener('keyup', (e) => {
+        if(e.key==='Enter' && main.input!=='Q') {
+            main.input=e.target.value;
+            e.target.value='';
+            decideString();
+        }
+    });
 }
 
-// 데이터 입력 받는 부분 추가
-function setData() {
-    main.input = prompt(`R U L F R' U' L' F' U2 Q 조합만 입력가능합니다.\ncube>`);
+// 문자열, 문자 판별
+function decideString() {
     if(main.shiftInfo.includes(main.input)===false){
         return limitRange();
     }
     makeTemp();
 }
-
 // 범위 제한
 function limitRange() {
     main.inputInfo =main.input.split('');
@@ -171,9 +176,7 @@ function endGame() {
         time -= 60;
     }
     second = time;
-    main.proto += `경과시간: ${minute}분:${second}초</br>`;
-    main.proto += `조작개수: ${main.realCnt}</br>`;
-    main.proto += `이용해주셔서 감사합니다. 뚜뚜뚜"</br>`;
+    main.proto += `경과시간: ${minute}분:${second}초</br>조작개수: ${main.realCnt}</br>이용해주셔서 감사합니다. 뚜뚜뚜"</br>`;
     displayProto();
 }
 
@@ -278,6 +281,7 @@ function createNewCube() {
     displayNewCube();
 }
 
+// display 조작되 생성되는 큐브
 function displayNewCube() {
     const container = document.querySelector('.newContainer');
     container.innerHTML += `<div>${main.newCube}</div>`;
