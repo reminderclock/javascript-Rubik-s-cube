@@ -1,0 +1,52 @@
+p {
+  font-size: 30px;
+}
+body {
+  /* font-family: BatangChe; */
+  font-family: Hack;
+}
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+.null {
+  visibility: hidden;
+}
+.red {
+  color: red;
+}
+.blue {
+  color: blue;
+}
+.orange {
+  color: orange;
+}
+.green {
+  color: green;
+}
+.yellow {
+  color: yellow;
+}
+.white {
+  color: white;
+}
+.fristContainer {
+  background-color: #3f454d;
+  width: 500px;
+  height: 200px;
+  display: block;
+  text-align: center;
+}
+.fristCube {
+  padding-top: 10px;
+}
+.newContainer {
+  background-color: #3f454d;
+  /* width:500px;
+        height: 200px; */
+  display: inline-block;
+  padding-left: 52px;
+  padding-right: 53px;
+  /* text-align: center; */
+}
