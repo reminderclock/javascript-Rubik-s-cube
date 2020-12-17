@@ -39,7 +39,6 @@ main.createInfo = function() {
                     }
                 }
                 this.makefrist();
-
 }
 
 // 초기 형태 만듬.
@@ -78,14 +77,13 @@ function startJust() {
     setData();
 }
 
-
 // 데이터 입력 받는 부분 추가
 function setData() {
     main.input = prompt(`R U L F R' U' L' F' U2 Q 조합만 입력가능합니다.\ncube>`);
     if(main.shiftInfo.includes(main.input)===false){
         return limitRange();
     }
-    decideCase();
+    makeTemp();
 }
 
 // 범위 제한
@@ -117,39 +115,34 @@ function makeInput() {
     if(main.input===undefined && main.q!=='q'){
         return setData();
     }
-    return decideCase();
+    return makeTemp();
 }
 
+// 현상태 배열 임시저장할 배열 생성
+function makeTemp(){
+    for(let i=0; i<9; i++) {
+        for(let j=0; j<21; j++) {
+            main.temp[i][j] = main.info[i][j];
+        }
+    }
+    return decideCase()
+}
 // 입력 케이스별 함수 호출
 function decideCase(){
     switch(main.input) {
     case "U":
-    rotateUp();
-    break;
-    case "U2":
-    rotateUp();rotateUp();
-    break;
     case "U'":
-    rotateUp();rotateUp();rotateUp();
-    break;
+    case "U2":
+    return rotateUp();
     case "L":
-    rotateLeft();
-    break;
     case "L'":
-    rotateLeft();rotateLeft();rotateLeft();
-    break;
+    return rotateLeft();
     case "R":
-    rotateRight();
-    break;
     case "R'":
-    rotateRight();rotateRight();rotateRight();
-    break; 
+    return rotateRight();
     case "F":
-    rotateFront();
-    break;
     case "F'":
-    rotateFront();rotateFront();rotateFront();
-    break; 
+    return rotateFront();
     case "Q":
     return addMessage();     
     }
@@ -187,69 +180,71 @@ function addMessage() {
     endGame();
 }
 
-
 // 앞쪽면(red) 이동함수
 function rotateFront() {
-    for(let i=0; i<9; i++) {
-        for(let j=0; j<21; j++) {
-            main.temp[i][j] = main.info[i][j];
-        }
-    }
     for(let i=0; i<3; i++) {
         main.info[5][12+i] = main.temp[5][6+i];
         main.info[5][6+i] = main.temp[5][i];
         main.info[5][i] = main.temp[5][18+i];
         main.info[5][18+i] = main.temp[5][12+i];
     }
+    if(main.input==="F'" && main.cnt<2){
+        main.cnt++;
+        return makeTemp();
+    }
+    main.cnt=0;
     createNewCube();
 }
 
 // 오른쪽면(green) 이동 함수
 function rotateRight() {
-    for(let i=0; i<9; i++) {
-        for(let j=0; j<21; j++) {
-            main.temp[i][j] = main.info[i][j];
-        }
-    }
     for(let i=0; i<3; i++) {
         main.info[i][11] = main.temp[3+i][8];
         main.info[3+i][8] = main.temp[6+i][11];
         main.info[6+i][11] = main.temp[5-i][18];
         main.info[5-i][18] = main.temp[i][11];
     }
+    if(main.input==="R'" && main.cnt<2){
+        main.cnt++;
+        return makeTemp();
+    }
+    main.cnt=0;
     createNewCube();
-
 }
 
 // 왼쪽면(white) 이동 함수 
 function rotateLeft() {
-    for(let i=0; i<9; i++) {
-        for(let j=0; j<21; j++) {
-            main.temp[i][j] = main.info[i][j];
-        }
-    }
     for(let i=0; i<3; i++) {
         main.info[8-i][9] = main.temp[5-i][6];
         main.info[5-i][6] = main.temp[2-i][9];
         main.info[2-i][9] = main.temp[3+i][20];
         main.info[3+i][20] = main.temp[8-i][9];
     }
+    if(main.input==="L'" && main.cnt<2){
+        main.cnt++;
+        return makeTemp();
+    }
+    main.cnt=0;
     createNewCube();
 }
 
 // 윗면(orange) 이동 함수
 function rotateUp() {
-    for(let i=0; i<9; i++) {
-        for(let j=0; j<21; j++) {
-            main.temp[i][j] = main.info[i][j];
-        }
-    }
     for(let i=0; i<3; i++) {
         main.info[5-i][12] = main.temp[2][11-i];
         main.info[6][9+i] = main.temp[5-i][12];
         main.info[3+i][2] = main.temp[6][9+i];
         main.info[2][11-i] = main.temp[3+i][2];
     }
+    if(main.input==="U'" && main.cnt<2){
+        main.cnt++;
+        return makeTemp();
+    }
+    else if(main.input==="U2" && main.cnt<1){
+        main.cnt++;
+        return makeTemp();
+    }
+    main.cnt=0;
     createNewCube();
 }
 
@@ -263,14 +258,8 @@ function createNewCube() {
     main.info.forEach( (arr) => {
         newCube += arr.join(' ') + '\n';
     });
-    if(main.rever.includes(main.input) || (main.input===main.two)) {
-        main.cnt++;
-    }
-    if(main.rever.includes(main.input)===true) {
-        return viewRever(newCube);
-    }
-    else if(main.input===main.two){
-        return viewU2(newCube);
+    if(main.input==="U2"){
+        main.realCnt++;
     }
     main.realCnt++;
     console.log(newCube);
@@ -278,32 +267,6 @@ function createNewCube() {
         return makeInput();
     }
     setData();
-}
-
-// 반대방향 case 출력
-function viewRever(newCube) {
-    if(main.cnt===3) {
-        main.cnt=0;
-        main.realCnt++;
-        console.log(newCube);
-        if(main.type==='string'){
-            return makeInput();
-        }
-        return setData();
-    }
-}
-
-// 180도 회전 출력-> U2
-function viewU2(newCube) {
-    if(main.cnt===2) {
-        main.cnt=0;
-        main.realCnt += 2;
-        console.log(newCube);
-        if(main.type==='string'){
-            return makeInput();
-        }
-        return setData();
-    }
 }
 
 let t1 = Date.now();
