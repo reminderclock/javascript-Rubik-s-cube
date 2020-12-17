@@ -191,7 +191,7 @@ function addMessage() {
         newCube += arr.join(' ') + '\n';
     });
     if(newCube===fristCube){
-        main.proto +=`축하합니다. 모두 맞추었습니다!!</br>`;
+        main.proto +=`축하합니다. 모두 맞추었습니다!!🎉🎉</br>`;
     }
     endGame();
 }
