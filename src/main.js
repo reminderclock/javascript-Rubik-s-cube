@@ -1,11 +1,11 @@
 let main={};
-main.white = 'W';
-main.red = 'R';
-main.yellow='Y';
-main.orange='O';
-main.blue='B';
-main.green='G';
-main.empty=' ';
+main.white = `<span class="white">W</span>`;
+main.red = `<span class="red">R</span>`
+main.yellow=`<span class="yellow">Y</span>`
+main.orange=`<span class="orange">O</span>`
+main.blue=`<span class="blue">B</span>`
+main.green=`<span class="green">G</span>`
+main.empty= `<span class="null">N</span>`;
 main.info=[];
 main.proto=[];
 main.input='';
@@ -21,6 +21,7 @@ main.q='';
 main.realCnt=0;
 main.clone=[[],[],[],[],[],[],[],[],[]];
 main.random=[];
+main.newCube='';
 
 // 기본 2차원 배열 생성
 main.createInfo = function() {
@@ -45,15 +46,26 @@ main.createInfo = function() {
 main.makefrist= function() {
     this.proto=[];
     this.info.forEach( (arr) => {
-        this.proto += arr.join(' ') + '\n';
+        this.proto += arr.join(' ') + '</br>';
     });
-    console.log(this.proto);
-    // setData();
+    displayProto();
 }
+
+// display 초기큐브
+function displayProto() {
+    let container = document.querySelector('.fristContainer');
+    container.innerHTML = `<div class="fristCube">${main.proto}</div>`;
+    main.proto='';
+    if(main.q!=='q'){
+        return setData();
+    }
+}
+
+
 
 // 무작위 버튼 클릭스 무작위로 큐브 생성
 main.makeRandom = function() {
-    let random = 'BBBBBBBBWWWWWWWWOOOOOOOORRRRRRRRGGGGGGGGYYYYYYYY'.split('');
+    let random = [this.blue,this.blue,this.blue,this.blue,this.blue,this.blue,this.blue,this.blue,this.white,this.white,this.white,this.white,this.white,this.white,this.white,this.white,this.orange,this.orange,this.orange,this.orange,this.orange,this.orange,this.orange,this.orange,this.green,this.green,this.green,this.green,this.green,this.green,this.green,this.green,this.yellow,this.yellow,this.yellow,this.yellow,this.yellow,this.yellow,this.yellow,this.yellow,this.red,this.red,this.red,this.red,this.red,this.red,this.red,this.red];
     random.sort(() => Math.random() - 0.5);
     this.random = [[this.empty,this.empty,this.empty,this.empty,this.empty,this.empty,this.empty,this.empty,this.empty,random[0], random[1],random[2],this.empty,this.empty,this.empty,this.empty,this.empty,this.empty,this.empty,this.empty,this.empty],
     [this.empty,this.empty,this.empty,this.empty,this.empty,this.empty,this.empty,this.empty,this.empty,random[3], this.blue, random[4],this.empty,this.empty,this.empty,this.empty,this.empty,this.empty,this.empty,this.empty,this.empty],
@@ -72,20 +84,25 @@ main.makeRandom = function() {
     this.makefrist();
 }
 
-// 시작하기 
-function startJust() {
-    setData();
+// 데이터 입력 받는 부분
+function setData() {
+    const inputBox = document.querySelector('input');
+    inputBox.addEventListener('keyup', (e) => {
+        if(e.key==='Enter' && main.input!=='Q') {
+            main.input=e.target.value;
+            e.target.value='';
+            decideString();
+        }
+    });
 }
 
-// 데이터 입력 받는 부분 추가
-function setData() {
-    main.input = prompt(`R U L F R' U' L' F' U2 Q 조합만 입력가능합니다.\ncube>`);
+// 문자열, 문자 판별
+function decideString() {
     if(main.shiftInfo.includes(main.input)===false){
         return limitRange();
     }
     makeTemp();
 }
-
 // 범위 제한
 function limitRange() {
     main.inputInfo =main.input.split('');
@@ -159,9 +176,8 @@ function endGame() {
         time -= 60;
     }
     second = time;
-    console.log(`경과시간: ${minute}분:${second}초`);
-    console.log(`조작개수: ${main.realCnt}`);
-    console.log("이용해주셔서 감사합니다. 뚜뚜뚜");
+    main.proto += `경과시간: ${minute}분:${second}초</br>조작개수: ${main.realCnt}</br>이용해주셔서 감사합니다. 뚜뚜뚜"</br>`;
+    displayProto();
 }
 
 // 전부 맞추었을 경우 축하메세지 출력
@@ -175,7 +191,7 @@ function addMessage() {
         newCube += arr.join(' ') + '\n';
     });
     if(newCube===fristCube){
-        console.log("축하합니다. 모두 맞추었습니다!!")
+        main.proto +=`축하합니다. 모두 맞추었습니다!!🎉🎉</br>`;
     }
     endGame();
 }
@@ -253,21 +269,27 @@ function createNewCube() {
     if(main.input==="Q"){
         return;
     }
-    let newCube='';
-    newCube += main.input + '\n';
+    main.newCube='';
+    main.newCube += main.input + '</br>';
     main.info.forEach( (arr) => {
-        newCube += arr.join(' ') + '\n';
+        main.newCube += arr.join(' ') + '</br>';
     });
     if(main.input==="U2"){
         main.realCnt++;
     }
     main.realCnt++;
-    console.log(newCube);
-    if(main.type==='string'){
+    displayNewCube();
+}
+
+// display 조작되 생성되는 큐브
+function displayNewCube() {
+    const container = document.querySelector('.newContainer');
+    container.innerHTML += `<div>${main.newCube}</div>`;
+        if(main.type==='string'){
         return makeInput();
     }
-    setData();
-}
+    return setData();
+    }
 
 let t1 = Date.now();
 main.createInfo();
