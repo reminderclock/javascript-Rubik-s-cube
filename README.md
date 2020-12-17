@@ -30,20 +30,23 @@
 ### 루빅스 큐브 구현 동작(함수 별)
 
 1. 처음 출력될 큐브의 2차원배열 생성 `main.createInfo()`
-2. 2차원 배열로 첫 큐브 구현할 `main.makefrist()`
-3. 무작위 버튼 클릭시, 무작위로 큐브를 섞어줄 `main.makeRandom()`
-4. 큐브 이동시켜 조작어 입력 받는 부분 `setData()`
-5. 문자열일 경우, 조작어 조합만 받는 `limitRange()`
-6. 연속된 문자열을 한조작어씩 처리해주는 `makeinput()`
-7. 현상태의 배열로 임시저장할 배열을 생성해줄 `makeTemp()`
-8. 입력된 조작면에 실행될 함수 호출시켜주는 `decideCase()`
-9. 앞면 조작(시계, 반시계) `rotateFront()`
-10. 오른면 조작(시계, 반시계) `rotateRight()`
-11. 왼면 조작(시계, 반시계) `rotateLeft()`
-12. 윗면 조작(시계, 반시계, 180도) `rotateUp()`
-13. 조작된 배열을 출력시켜줄 `createNewCube()`
-14. 모두 맞추었을 시, 축하메세지 출력할 `addMessage()`
-15. 종료시 시간, 조작개수, 종료인사를 출력시켜줄 `endGame()`
+2. 2차원 배열로 초기 큐브 형태만들 `main.makefrist()`
+3. 초기 큐브/종료인사 display할 `displayProto()`
+4. 무작위 버튼 클릭시, 무작위로 큐브를 섞어줄 `main.makeRandom()`
+5. 큐브 이동시킬 조작어 입력 받는 부분 `setData()`
+6. 문자열, 문자 판별하여 함수 호출할 `decideString()`
+7. 문자열일 경우, 조작어 조합만 받는 `limitRange()`
+8. 연속된 문자열을 한조작어씩 처리해주는 `makeinput()`
+9. 현상태의 배열로 임시저장할 배열을 생성해줄 `makeTemp()`
+10. 입력된 조작면에 실행될 함수 호출시켜주는 `decideCase()`
+11. 앞면 조작(시계, 반시계) `rotateFront()`
+12. 오른면 조작(시계, 반시계) `rotateRight()`
+13. 왼면 조작(시계, 반시계) `rotateLeft()`
+14. 윗면 조작(시계, 반시계, 180도) `rotateUp()`
+15. 조작된 배열로 새로운 큐브 만들 `createNewCube()`
+16. 조작되어 생성되는 큐브 display할 `displayNewCube()`
+17. 모두 맞추었을 시, 축하메세지 생성할 `addMessage()`
+18. 종료시 시간, 조작개수, 종료인사를 생성시켜줄 `endGame()`
 
 ### 구현한 기능
 
@@ -58,6 +61,8 @@
 
 ### 출력결과
 
-<img width="419" alt="초기창" src="https://user-images.githubusercontent.com/71510362/102019953-98660900-3db9-11eb-907e-6c8506e0d41b.PNG">
+<img width="303" alt="초기" src="https://user-images.githubusercontent.com/71510362/102526484-0f174500-40df-11eb-85d0-616a1643e946.PNG">
 
-<img width="306" alt="결과창" src="https://user-images.githubusercontent.com/71510362/102019989-c3e8f380-3db9-11eb-9b27-c1eb547da8a1.PNG">
+<img width="303" alt="랜덤" src="https://user-images.githubusercontent.com/71510362/102526551-2d7d4080-40df-11eb-8c9f-9de5261eac1a.PNG">
+
+<img width="302" alt="결과" src="https://user-images.githubusercontent.com/71510362/102526526-1fc7bb00-40df-11eb-8e4e-35195cf0def5.PNG">
