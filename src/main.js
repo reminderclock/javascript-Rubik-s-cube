@@ -5,7 +5,6 @@ main.yellow=`<span class="yellow">Y</span>`
 main.orange=`<span class="orange">O</span>`
 main.blue=`<span class="blue">B</span>`
 main.green=`<span class="green">G</span>`
-// main.empty= '&#x2003';
 main.empty= `<span class="null">N</span>`;
 main.info=[];
 main.proto=[];
@@ -22,6 +21,7 @@ main.q='';
 main.realCnt=0;
 main.clone=[[],[],[],[],[],[],[],[],[]];
 main.random=[];
+main.newCube='';
 
 // 기본 2차원 배열 생성
 main.createInfo = function() {
@@ -55,6 +55,7 @@ main.makefrist= function() {
 function displayProto() {
     let container = document.querySelector('.fristContainer');
     container.innerHTML = `<div class="fristCube">${main.proto}</div>`;
+    main.proto='';
 }
 
 
@@ -85,7 +86,7 @@ main.makeRandom = function() {
 
 // 시작하기 
 function startJust() {
-    setData();
+    return setData();
 }
 
 // 데이터 입력 받는 부분 추가
@@ -170,9 +171,10 @@ function endGame() {
         time -= 60;
     }
     second = time;
-    console.log(`경과시간: ${minute}분:${second}초`);
-    console.log(`조작개수: ${main.realCnt}`);
-    console.log("이용해주셔서 감사합니다. 뚜뚜뚜");
+    main.proto += `경과시간: ${minute}분:${second}초</br>`;
+    main.proto += `조작개수: ${main.realCnt}</br>`;
+    main.proto += `이용해주셔서 감사합니다. 뚜뚜뚜"</br>`;
+    displayProto();
 }
 
 // 전부 맞추었을 경우 축하메세지 출력
@@ -186,7 +188,7 @@ function addMessage() {
         newCube += arr.join(' ') + '\n';
     });
     if(newCube===fristCube){
-        console.log("축하합니다. 모두 맞추었습니다!!")
+        main.proto +=`축하합니다. 모두 맞추었습니다!!</br>`;
     }
     endGame();
 }
@@ -264,25 +266,25 @@ function createNewCube() {
     if(main.input==="Q"){
         return;
     }
-    let newCube='';
-    newCube += main.input + '</br>';
+    main.newCube='';
+    main.newCube += main.input + '</br>';
     main.info.forEach( (arr) => {
-        newCube += arr.join(' ') + '</br>';
+        main.newCube += arr.join(' ') + '</br>';
     });
     if(main.input==="U2"){
         main.realCnt++;
     }
     main.realCnt++;
-    displayNewCube(newCube);
+    displayNewCube();
 }
 
-function displayNewCube(newCube) {
+function displayNewCube() {
     const container = document.querySelector('.newContainer');
-    container.innerHTML += `<div>${newCube}</div>`;
+    container.innerHTML += `<div>${main.newCube}</div>`;
         if(main.type==='string'){
         return makeInput();
     }
-    setData();
+    return setData();
     }
 
 let t1 = Date.now();
