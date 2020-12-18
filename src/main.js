@@ -208,12 +208,7 @@ function rotateFront() {
         main.info[5][i] = main.temp[5][18+i];
         main.info[5][18+i] = main.temp[5][12+i];
     }
-    if(main.input==="F'" && main.cnt<2){
-        main.cnt++;
-        return makeTemp();
-    }
-    main.cnt=0;
-    createNewCube();
+    decideDetailCase();
 }
 
 // 오른쪽면(green) 이동 함수
@@ -224,12 +219,7 @@ function rotateRight() {
         main.info[6+i][11] = main.temp[5-i][18];
         main.info[5-i][18] = main.temp[i][11];
     }
-    if(main.input==="R'" && main.cnt<2){
-        main.cnt++;
-        return makeTemp();
-    }
-    main.cnt=0;
-    createNewCube();
+    decideDetailCase();
 }
 
 // 왼쪽면(white) 이동 함수 
@@ -240,12 +230,7 @@ function rotateLeft() {
         main.info[2-i][9] = main.temp[3+i][20];
         main.info[3+i][20] = main.temp[8-i][9];
     }
-    if(main.input==="L'" && main.cnt<2){
-        main.cnt++;
-        return makeTemp();
-    }
-    main.cnt=0;
-    createNewCube();
+    decideDetailCase();
 }
 
 // 윗면(orange) 이동 함수
@@ -256,11 +241,16 @@ function rotateUp() {
         main.info[3+i][2] = main.temp[6][9+i];
         main.info[2][11-i] = main.temp[3+i][2];
     }
-    if(main.input==="U'" && main.cnt<2){
+    decideDetailCase();
+}
+
+// 반시계, 180도 회전 판단
+function decideDetailCase() {
+    if(main.rever.includes(main.input) && main.cnt<2){
         main.cnt++;
         return makeTemp();
     }
-    else if(main.input==="U2" && main.cnt<1){
+    else if(main.input==="U2" && main.cnt<1) {
         main.cnt++;
         return makeTemp();
     }
