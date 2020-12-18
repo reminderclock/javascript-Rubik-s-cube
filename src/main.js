@@ -93,6 +93,9 @@ function setData() {
             e.target.value='';
             return decideString();
         }
+        if(e.key==='Enter' && main.input==='Q') {
+            e.target.value='';
+        }
     });
 }
 
