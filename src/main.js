@@ -81,7 +81,7 @@ main.makeRandom = function() {
             main.info[i][j] = main.random[i][j];
         }
     }
-    this.makefrist();
+    return main.input!=="Q" ? this.makefrist() : alert("게임이 종료되었습니다.");
 }
 
 // 데이터 입력 받는 부분
@@ -91,7 +91,7 @@ function setData() {
         if(e.key==='Enter' && main.input!=='Q') {
             main.input=e.target.value;
             e.target.value='';
-            decideString();
+            return decideString();
         }
     });
 }
@@ -144,6 +144,7 @@ function makeTemp(){
     }
     return decideCase()
 }
+
 // 입력 케이스별 함수 호출
 function decideCase(){
     switch(main.input) {
