@@ -6,7 +6,6 @@ cube.bottom =[];
 cube.center = [];
 cube.middle = [];
 cube.rowInfo = [];
-cube.columnInfo = [];
 cube.proto='';
 cube.input = '';
 cube.rightInfo = ["U'","R'","L","B"];
@@ -30,7 +29,6 @@ cube.makeOthers = function() {
 // 이차원 배열 만들기
 cube.makeFrist = function() {
     this.rowInfo=[this.top, this.center, this.bottom];
-    this.columnInfo=[this.left, this.middle, this.right];
     this.frist();
 }
 
@@ -68,8 +66,7 @@ cube.limitRange = function() {
 cube.makeInput = function() {
     this.input = this.inputInfo.shift();
     if(this.inputInfo[0]==="'"){
-        this.inputInfo.shift();
-        this.input += "'";
+        this.input += this.inputInfo.shift();
     }
     if(this.input==="Q"){
         this.q='q';
@@ -136,27 +133,14 @@ cube.updateOtherLine = function(line) {
         this.middle[2] = line[1];
         this.right[2] = line[2];
     }
-    this.createNew(line);
+    this.createNew();
 }
 
 // create New Cube 새로운 큐브 생성하기 
-cube.createNew = function(line) {
-    if(this.rowInfo.includes(line)===true){
-        for(let i=0; i<3; i++) {
-            this.input += '\n';
-            for(let j=0; j<3; j++) {
-                this.input += `${this.rowInfo[i][j]} `;
-            }
-        }
-    }
-    else if(this.columnInfo.includes(line)===true){
-        for(let i=0; i<3; i++) {
-            this.input += '\n';
-            for(let j=0; j<3; j++) {
-                this.input += `${this.columnInfo[j][i]} `;
-            }
-        }
-    }
+cube.createNew = function() {
+    this.rowInfo.forEach( (arr) => {
+        this.input += `\n${arr.join(' ')}`;
+    });
     console.log(this.input);
     if(this.type==='string'){
         return this.makeInput();
