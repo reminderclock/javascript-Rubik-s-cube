@@ -122,12 +122,10 @@ function limitRange() {
 function makeInput() {
     main.input = main.inputInfo.shift();
     if(main.inputInfo[0]==="'"){
-        main.inputInfo.shift();
-        main.input += "'";
+        main.input += main.inputInfo.shift();
     }
     else if(main.inputInfo[0]==="2"){
-        main.inputInfo.shift();
-        main.input += "2";
+        main.input += main.inputInfo.shift();
     }
     if(main.input==="Q"){
         main.q='q';
