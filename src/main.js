@@ -262,9 +262,9 @@ function createNewCube() {
         return;
     }
     main.newCube='';
-    main.newCube += main.input + '</br>';
+    main.newCube += `${main.input}</br>`;
     main.info.forEach( (arr) => {
-        main.newCube += arr.join(' ') + '</br>';
+        main.newCube += `${arr.join(' ')}</br>`;
     });
     if(main.input==="U2"){
         main.realCnt++;
