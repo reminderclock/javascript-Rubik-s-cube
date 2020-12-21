@@ -121,10 +121,7 @@ function limitRange() {
 // 연속된 문자열 처리 
 function makeInput() {
     main.input = main.inputInfo.shift();
-    if(main.inputInfo[0]==="'"){
-        main.input += main.inputInfo.shift();
-    }
-    else if(main.inputInfo[0]==="2"){
+    if(main.inputInfo[0]==="'" || main.inputInfo[0]==="2"){
         main.input += main.inputInfo.shift();
     }
     if(main.input==="Q"){
