@@ -145,7 +145,7 @@ function makeTemp(){
             main.temp[i][j] = main.info[i][j];
         }
     }
-    return decideCase()
+    return decideCase();
 }
 
 // 입력 케이스별 함수 호출
