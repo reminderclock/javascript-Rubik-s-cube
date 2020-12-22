@@ -71,14 +71,17 @@ function limitRange() {
 // 연속된 문자열 처리 
 function makeInput() {
     main.input = main.inputInfo.shift();
-    if(main.inputInfo[0]==="'"){
-        main.inputInfo.shift();
-        main.input += "'";
+    if(main.inputInfo[0]==="'" || main.inputInfo[0]==="2") {
+        main.input += main.inputInfo.shift();
     }
-    else if(main.inputInfo[0]==="2"){
-        main.inputInfo.shift();
-        main.input += "2";
-    }
+    // if(main.inputInfo[0]==="'"){
+    //     main.inputInfo.shift();
+    //     main.input += "'";
+    // }
+    // else if(main.inputInfo[0]==="2"){
+    //     main.inputInfo.shift();
+    //     main.input += "2";
+    // }
     if(main.input==="Q"){
         main.q='q';
     }
