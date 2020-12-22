@@ -127,7 +127,8 @@ function decideCase(){
 
 // 종료 되는 부분 추가
 function endGame() {
-    let t2 = Date.now();
+    const t2 = Date.now();
+    // let t2 = Date.now();
     let time = Math.floor((t2-t1)/1000);
     let minute = 0;
     let second = 0;
@@ -268,5 +269,6 @@ function viewU2(newCube) {
         return setData();
     }
 }
-let t1 = Date.now();
+const t1 = Date.now();
+// let t1 = Date.now();
 main.createInfo();
